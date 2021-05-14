@@ -14,227 +14,86 @@
     <input type="submit" value="Chuyển đổi">
 </form>
 <?php
-$number = null;
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $number = +$_REQUEST["number"];
+    $number = $_REQUEST["number"];
 }
-if ($number < 10 && $number >= 0) {
-    switch ($number) {
-        case 0:
-            echo "Zero";
-            break;
-        case 1:
-            echo "One";
-            break;
-        case 2:
-            echo "Two";
-            break;
-        case 3:
-            echo "Three";
-            break;
-        case 4:
-            echo "Four";
-            break;
-        case 5:
-            echo "Five";
-            break;
-        case 6:
-            echo "Six";
-            break;
-        case 7:
-            echo "Seven";
-            break;
-        case 8:
-            echo "Eight";
-            break;
-        case 9:
-            echo "Nine";
-            break;
-    }
+$arr = [1 => "one",
+    2 => "two",
+    3 => "three",
+    4 => "four",
+    5 => "five",
+    6 => "six",
+    7 => "seven",
+    8 => "eight",
+    9 => "nine",
+    10 => "ten",
+    11 => "eleven",
+    12 => "twelve",
+    13 => "thirteen",
+    14 => "fourteen",
+    15 => "fifteen",
+    18 => "eighteen",
+    20 => "twenty",
+    30 => "thirty",
+    40 => "forty",
+    50 => "fifty",
+    80 => "eighty"];
+function readOneNumber($number)
+{
+    global $arr;
+    return $arr[$number];
 }
-elseif ($number < 20) {
-    switch ($number - 10) {
-        case 0:
-            echo "Ten";
-            break;
-        case 1:
-            echo "Eleven";
-            break;
-        case 2:
-            echo "Twelve";
-            break;
-        case 3:
-            echo "Thirteen";
-            break;
-        case 4:
-            echo "Fourteen";
-            break;
-        case 5:
-            echo "Fifteen";
-            break;
-        case 6:
-            echo "Sixteen";
-            break;
-        case 7:
-            echo "Seventeen";
-            break;
-        case 8:
-            echo "Eighteen";
-            break;
-        case 9:
-            echo "Nineteen";
-            break;
-    }
-}
-elseif ($number < 100) {
-    $tens = floor($number / 10);
-    $ones = $number % 10;
-    switch ($tens) {
-        case 2:
-            echo "Twenty";
-            break;
-        case 3:
-            echo "Thirty";
-            break;
-        case 4:
-            echo "Forty";
-            break;
-        case 5:
-            echo "Fifty";
-            break;
-        case 6:
-            echo "Sixty";
-            break;
-        case 7:
-            echo "Seventy";
-            break;
-        case 8:
-            echo "Eighty";
-            break;
-        case 9:
-            echo "Ninety";
-            break;
-    }
-    switch ($ones) {
-        case 1:
-            echo " One";
-            break;
-        case 2:
-            echo " Two";
-            break;
-        case 3:
-            echo " Three";
-            break;
-        case 4:
-            echo " Four";
-            break;
-        case 5:
-            echo " Five";
-            break;
-        case 6:
-            echo " Six";
-            break;
-        case 7:
-            echo " Seven";
-            break;
-        case 8:
-            echo " Eight";
-            break;
-        case 9:
-            echo " Nine";
-            break;
-    }
-}
-elseif ($number < 1000) {
-    $onehundreds = floor($number / 100);
-    $tens = floor(($number % 100) / 10);
-    $ones = $number - $onehundreds * 100 - $tens * 10;
-    switch ($onehundreds) {
-        case 1:
-            echo "One hundred";
-            break;
-        case 2:
-            echo "Two hundred";
-            break;
-        case 3:
-            echo "Three hundred";
-            break;
-        case 4:
-            echo "Four hundred";
-            break;
-        case 5:
-            echo "Five hundred";
-            break;
-        case 6:
-            echo "Six hundred";
-            break;
-        case 7:
-            echo "Seven hundred";
-            break;
-        case 8:
-            echo "Eight hundred";
-            break;
-        case 9:
-            echo "Nine hundred";
-            break;
-    }
 
-    switch ($tens) {
-        case 2:
-            echo " and twenty";
-            break;
-        case 3:
-            echo " and thirty";
-            break;
-        case 4:
-            echo " and forty";
-            break;
-        case 5:
-            echo " and fifty";
-            break;
-        case 6:
-            echo " and sixty";
-            break;
-        case 7:
-            echo " and seventy";
-            break;
-        case 8:
-            echo " and eighty";
-            break;
-        case 9:
-            echo " and ninety";
-            break;
+function readTwoNumber($number)
+{
+    global $arr;
+    if ($number < 16) {
+        return $arr[$number];
+    } elseif ($number < 20) {
+        if ($number == 18) {
+            return $arr[18];
+        } else {
+            return $arr[$number[1]] . "teen";
+        }
+    } else {
+        if ($number < 60) {
+            if ($number % 10 == 0) {
+                return $arr[$number];
+            } else {
+                return $arr[$number[0] * 10] . " " . $arr[$number[1]];
+            }
+        } else {
+            if ($number[0] == 8) {
+                if ($number[1] == 0) {
+                    return $arr[$number];
+                } else {
+                    return $arr[$number[0] * 10] . " " . $arr[$number[1]];
+                }
+            } else {
+                if ($number % 10 == 0) {
+                    return $arr[$number[0]] . "ty";
+                } else {
+                    return $arr[$number[0]] . "ty " . $arr[$number[1]];
+                }
+            }
+        }
     }
-    switch ($ones) {
-        case 1:
-            echo " one";
-            break;
-        case 2:
-            echo " two";
-            break;
-        case 3:
-            echo " three";
-            break;
-        case 4:
-            echo " four";
-            break;
-        case 5:
-            echo " five";
-            break;
-        case 6:
-            echo " six";
-            break;
-        case 7:
-            echo " seven";
-            break;
-        case 8:
-            echo " eight";
-            break;
-        case 9:
-            echo " nine";
-            break;
-    }
+}
 
+function readThreeNumber($number)
+{
+    global $arr;
+    $twoNumber = $number - $number[0] * 100;
+    $stringTwoNumber = readTwoNumber("$twoNumber");
+    return $arr[$number[0]] . "hundred and " . $stringTwoNumber;
+}
+
+if ($number < 10) {
+    echo readOneNumber($number);
+} elseif ($number < 100) {
+    echo readTwoNumber($number);
+} elseif ($number < 1000) {
+    echo readThreeNumber($number);
 }
 ?>
 </body>
