@@ -9,9 +9,9 @@
 </head>
 <body>
 <form method="post">
-    Tên người dùng: <input type="text" name="username">
-    Email: <input type="text" name="email">
-    Điện thoại: <input type="text" name="phoneNumber">
+    Tên người dùng: <input type="text" name="username"><br>
+    Email: <input type="text" name="email"><br>
+    Điện thoại: <input type="text" name="phoneNumber"><br>
     <input type="submit" value="Gửi đi">
 </form>
 <?php
@@ -22,35 +22,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phoneNumber = $_REQUEST["phoneNumber"];
     if (empty($username) || empty($email) || empty($phoneNumber)) {
         echo "Không được để thông tin rỗng";
-    }
-    else {
+    } else {
 
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             saveDataJSON("users.json", $username, $email, $phoneNumber);
-        }
-        else {
+        } else {
             echo "Định dạng email không đúng!";
         }
     }
-    function saveDataJSON($filename, $username, $email, $phoneNumber) {
-        $dataCurrent = getDataJSON($filename);
-        $contact = ["username" => $username,
-            "email" => $email,
-            "phoneNumber" => $phoneNumber
-        ];
-        $dataCurrent[] = $contact;
-        //Hàm json_encode là hàm chuyển mảng về JSON
-        $contactJSON = json_encode($contact);
-        //Lưu dữ liệu vào file
-        file_put_contents($filename, $contactJSON);
-    }
-    function getDataJSON($filename) {
-        //Đọc dữ liệu từ file dùng hàm file_get_contents, dữ liệu trả về thuộc kiểu dữ liệu JSON
-        $dataIntoFile = file_get_contents($filename);
-        //Chuyển dữ liệu từ JSON về mảng dùng hàm json_decode
-        $dataArray = json_decode($dataIntoFile, true);
-        return $dataArray;
-    }
+}
+function saveDataJSON($filename, $username, $email, $phoneNumber)
+{
+    $dataCurrent = getDataJSON($filename);
+    $contact = ["username" => $username,
+        "email" => $email,
+        "phoneNumber" => $phoneNumber
+    ];
+    $dataCurrent[] = $contact;
+    //Hàm json_encode là hàm chuyển mảng về JSON
+    $contactJSON = json_encode($dataCurrent);
+    //Lưu dữ liệu vào file
+    file_put_contents($filename, $contactJSON);
+}
+
+function getDataJSON($filename)
+{
+    //Đọc dữ liệu từ file dùng hàm file_get_contents, dữ liệu trả về thuộc kiểu dữ liệu JSON
+    $dataIntoFile = file_get_contents($filename);
+    //Chuyển dữ liệu từ JSON về mảng dùng hàm json_decode
+    $dataArray = json_decode($dataIntoFile, true);
+    return $dataArray;
 }
 ?>
 </body>
