@@ -16,6 +16,7 @@
 </form>
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     //Lấy dữ liệu từ form
     $username = $_REQUEST["username"];
     $email = $_REQUEST["email"];
@@ -53,6 +54,7 @@ function getDataJSON($filename)
     $dataArray = json_decode($dataIntoFile, true);
     return $dataArray;
 }
+
 ?>
 </body>
 </html>
